@@ -1,0 +1,7 @@
+grumphp:
+    tasks:
+        phplint: ~
+        phpunit: ~
+        git_commit_message:
+            matchers:
+                'Penser à mettre le numéro de issue (ex: "DEV-XXX: Lorem ipsum")': /((DEV|RUN)-\d+:.+)/
