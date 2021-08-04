@@ -26,25 +26,8 @@
     "api-platform/api-pack": {
         "version": "v1.3.0"
     },
-    "api-platform/core": {
-        "version": "2.5",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "2.5",
-            "ref": "f132b33c43cf47b4451d91d2b57057eacb6b8e1d"
-        },
-        "files": [
-            "config/packages/api_platform.yaml",
-            "config/routes/api_platform.yaml",
-            "src/Entity/.gitignore"
-        ]
-    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.2"
-    },
-    "defuse/php-encryption": {
-        "version": "v2.3.1"
     },
     "doctrine/annotations": {
         "version": "1.0",
@@ -144,14 +127,23 @@
     "fakerphp/faker": {
         "version": "v1.15.0"
     },
-    "fig/link-util": {
-        "version": "1.1.2"
-    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
     "gitonomy/gitlib": {
         "version": "v1.2.3"
+    },
+    "knpuniversity/oauth2-client-bundle": {
+        "version": "1.20",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.20",
+            "ref": "cf8a43877d119412c8528ba07da6b5255670f312"
+        },
+        "files": [
+            "config/packages/knpu_oauth2_client.yaml"
+        ]
     },
     "laminas/laminas-code": {
         "version": "4.4.2"
@@ -160,19 +152,47 @@
         "version": "2.0.0"
     },
     "lcobucci/jwt": {
-        "version": "4.0.3"
+        "version": "4.1.4"
     },
-    "league/event": {
-        "version": "2.2.0"
+    "league/oauth2-github": {
+        "version": "3.0.0"
     },
-    "league/oauth2-server": {
-        "version": "8.3.1"
+    "league/oauth2-google": {
+        "version": "4.0.0"
+    },
+    "lexik/jwt-authentication-bundle": {
+        "version": "2.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "5b2157bcd5778166a5696e42f552ad36529a07a6"
+        },
+        "files": [
+            "config/packages/lexik_jwt_authentication.yaml"
+        ]
     },
     "monolog/monolog": {
         "version": "2.3.2"
     },
     "myclabs/deep-copy": {
         "version": "1.10.2"
+    },
+    "namshi/jose": {
+        "version": "7.2.3"
+    },
+    "nelmio/api-doc-bundle": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "c8e0c38e1a280ab9e37587a8fa32b251d5bc1c94"
+        },
+        "files": [
+            "config/packages/nelmio_api_doc.yaml",
+            "config/routes/nelmio_api_doc.yaml"
+        ]
     },
     "nelmio/cors-bundle": {
         "version": "1.5",
@@ -189,26 +209,11 @@
     "nikic/php-parser": {
         "version": "v4.12.0"
     },
-    "nyholm/psr7": {
-        "version": "1.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.0",
-            "ref": "0cd4d2d0e7f646fda75f9944f747a56e6ed13d4c"
-        },
-        "files": [
-            "config/packages/nyholm_psr7.yaml"
-        ]
-    },
     "ondram/ci-detector": {
         "version": "3.5.1"
     },
     "opis/closure": {
         "version": "3.6.2"
-    },
-    "paragonie/random_compat": {
-        "version": "v9.99.100"
     },
     "phar-io/manifest": {
         "version": "2.0.3"
@@ -218,9 +223,6 @@
     },
     "php": {
         "version": "7.4"
-    },
-    "php-http/message-factory": {
-        "version": "v1.0.2"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -273,15 +275,6 @@
         "version": "1.1.1"
     },
     "psr/event-dispatcher": {
-        "version": "1.0.0"
-    },
-    "psr/http-factory": {
-        "version": "1.0.1"
-    },
-    "psr/http-message": {
-        "version": "1.0.1"
-    },
-    "psr/link": {
         "version": "1.0.0"
     },
     "psr/log": {
@@ -337,18 +330,6 @@
     },
     "seld/jsonlint": {
         "version": "1.8.3"
-    },
-    "sensio/framework-extra-bundle": {
-        "version": "5.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "5.2",
-            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
-        },
-        "files": [
-            "config/packages/sensio_framework_extra.yaml"
-        ]
     },
     "symfony/asset": {
         "version": "v5.3.2"
@@ -519,6 +500,9 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.23.0"
     },
+    "symfony/polyfill-php56": {
+        "version": "v1.20.0"
+    },
     "symfony/polyfill-php73": {
         "version": "v1.23.0"
     },
@@ -542,9 +526,6 @@
     },
     "symfony/proxy-manager-bridge": {
         "version": "v5.3.0"
-    },
-    "symfony/psr-http-message-bridge": {
-        "version": "v2.1.0"
     },
     "symfony/routing": {
         "version": "5.3",
@@ -639,9 +620,6 @@
     "symfony/var-exporter": {
         "version": "v5.3.3"
     },
-    "symfony/web-link": {
-        "version": "v5.3.3"
-    },
     "symfony/web-profiler-bundle": {
         "version": "3.3",
         "recipe": {
@@ -662,27 +640,11 @@
     "theseer/tokenizer": {
         "version": "1.2.0"
     },
-    "trikoder/oauth2-bundle": {
-        "version": "3.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "3.0",
-            "ref": "99d0b876c2828fec3b546b25bf84eb81774c2d64"
-        },
-        "files": [
-            "config/packages/trikoder_oauth2.yaml",
-            "config/routes/trikoder_oauth2.yaml"
-        ]
-    },
     "twig/twig": {
         "version": "v3.3.2"
     },
     "webmozart/assert": {
         "version": "1.10.0"
-    },
-    "willdurand/negotiation": {
-        "version": "3.0.0"
     },
     "zenstruck/callback": {
         "version": "v1.4.0"
@@ -699,5 +661,8 @@
             "config/packages/dev/zenstruck_foundry.yaml",
             "config/packages/test/zenstruck_foundry.yaml"
         ]
+    },
+    "zircote/swagger-php": {
+        "version": "3.2.3"
     }
 }

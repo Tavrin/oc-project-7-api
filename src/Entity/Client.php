@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ClientRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource()
  * @UniqueEntity(fields={"email"})
  * @ORM\Entity(repositoryClass=ClientRepository::class)
  */
@@ -21,11 +21,15 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"client_show", "client_list"})
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(message="Il faut fournir une adresse email")
+     * @Assert\Email()
+     * @Groups({"client_show"})
+     * @ORM\Column(type="string", length=180)
      */
     private $email;
 
@@ -41,22 +45,28 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 5)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Groups({"client_show", "client_list"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"client_show"})
      */
     private $description;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="client", orphanRemoval=true)
+     * @Groups({"client_show"})
      */
     private $users;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"client_show"})
      */
     private $createdAt;
 
@@ -64,6 +74,11 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $githubId;
 
     public function __construct()
     {
@@ -233,6 +248,18 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getGithubId(): ?int
+    {
+        return $this->githubId;
+    }
+
+    public function setGithubId(?int $githubId): self
+    {
+        $this->githubId = $githubId;
 
         return $this;
     }

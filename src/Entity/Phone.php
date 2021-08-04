@@ -2,24 +2,13 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\PhoneRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource(
- *
- * )
- * @ApiFilter(BooleanFilter::class, properties={"status"})
- * @ApiFilter(RangeFilter::class, properties={"price"})
  * @ORM\Entity(repositoryClass=PhoneRepository::class)
- * @ApiFilter(SearchFilter::class, properties={"name": "partial", "description": "partial", "price": "exact"})
-
  */
 class Phone
 {
@@ -27,6 +16,7 @@ class Phone
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"phone_show", "phone_list"})
      */
     private $id;
 
@@ -38,16 +28,19 @@ class Phone
      *     max=50,
      *     maxMessage="Le nom doit faire entre 2 et 50 caractères"
      * )
+     * @Groups({"phone_show", "phone_list"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"phone_show", "phone_list"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"phone_show"})
      */
     private $description;
 
@@ -58,6 +51,7 @@ class Phone
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"phone_show", "phone_list"})
      */
     private $createdAt;
 

@@ -2,17 +2,12 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource(
- *     normalizationContext={"groups"={"user:read"}},
- *     denormalizationContext={"groups"={"user:write"}},
- * )
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
 class User
@@ -20,28 +15,28 @@ class User
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
+     * @Groups({"client_show", "users_list", "user_show"})
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
+     * @Groups({"users_list", "user_show"})
      * @Assert\NotBlank(message="Il faut fournir une adresse email")
      * @Assert\Email()
-     * @Groups({"user:read", "user:write"})
      * @ORM\Column(type="string", length=180)
      */
     private $email;
 
     /**
-     * @Groups({"user:read", "user:write"})
      * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      */
     private $client;
 
     /**
+     * @Groups({"users_list", "user_show"})
      * @Assert\NotBlank(message="Il faut fournir un nom d'utilisateur")
-     * @Groups({"user:read", "user:write"})
      * @ORM\Column(type="string", length=255)
      */
     private $username;

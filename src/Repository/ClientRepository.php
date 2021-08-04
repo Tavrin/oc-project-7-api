@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Client;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -35,6 +36,21 @@ class ClientRepository extends ServiceEntityRepository implements PasswordUpgrad
         $this->_em->persist($user);
         $this->_em->flush();
     }
+
+    public function findPaginatedClients(int $first = 0, int $limit = 2): Paginator
+    {
+        $query = $this->createQueryBuilder('c')
+            ->orderBy('c.createdAt', 'DESC')
+            ->setFirstResult($first)
+        ;
+
+        if (isset($limit) && 0 !== $limit) {
+            $query->setMaxResults($limit);
+        }
+
+        return new Paginator($query, true);
+    }
+
 
     // /**
     //  * @return Client[] Returns an array of Client objects
