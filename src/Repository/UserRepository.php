@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -22,18 +23,38 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         parent::__construct($registry, User::class);
     }
 
-    /**
-     * Used to upgrade (rehash) the user's password automatically over time.
-     */
-    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
+    public function findClientUsers(int $clientId, int $firstPage = 1, int $limit = null, array $sort = null): Paginator
     {
-        if (!$user instanceof User) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
+        if (null === $limit) {
+            $limit = 10;
         }
 
-        $user->setPassword($newHashedPassword);
-        $this->_em->persist($user);
-        $this->_em->flush();
+        $offset = ($firstPage * $limit) - $limit;
+
+        $query = $this->createQueryBuilder('u')
+            ->orderBy('u.createdAt', 'DESC')
+            ->setFirstResult($offset)
+            ->join('u.client', 'c')
+            ->where('c.id = :clientId')
+            ->setParameter('clientId', $clientId)
+        ;
+
+        if (isset($limit) && 0 !== $limit) {
+            $query->setMaxResults($limit);
+        }
+
+        if (isset($sort)) {
+            foreach($sort as $column) {
+                if ('-' === $column[0]) {
+                    $column = substr($column, 1);
+                    $query->addOrderBy('u.'.$column, 'ASC');
+                } else {
+                    $query->addOrderBy('u.'.$column, 'DESC');
+                }
+            }
+        }
+
+        return new Paginator($query, true);
     }
 
     // /**

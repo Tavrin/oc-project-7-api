@@ -2,7 +2,8 @@
 
 namespace App\DataFixtures;
 
-use App\Enum\PhoneNameEnums;
+use App\Entity\Client;
+use App\Enum\PhoneEnums;
 use App\Factory\ClientFactory;
 use App\Factory\PhoneFactory;
 use App\Factory\UserFactory;
@@ -13,8 +14,8 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        foreach (PhoneNameEnums::PHONE_NAME as $phone) {
-            PhoneFactory::new()->create(['name' => $phone]);
+        foreach (PhoneEnums::PHONE as $phone) {
+            PhoneFactory::new()->create(['name' => $phone['name'], 'price' => $phone['price']]);
         }
 
         ClientFactory::new()->createMany(10);
@@ -23,6 +24,20 @@ class AppFixtures extends Fixture
             function() {
                 return ['client' => ClientFactory::random()];
             }
+        );
+
+        $client = new Client();
+
+        $client->setEmail('etienne.doux@gmail.com');
+        $client->setPassword('$2y$13$t0cQrAU.xgfCzHex.Xc.Se4Y.gF9zNmki5GsngCoUj.GUz3Nk2iw.');
+        $client->setName('Etienne');
+        $client->setRoles(['ROLE_USER']);
+        $manager->persist($client);
+        $manager->flush();
+
+        UserFactory::new()->createMany(
+            10,
+            ['client' => $client]
         );
 
         $manager->flush();

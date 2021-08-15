@@ -206,6 +206,14 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->users;
     }
 
+    /**
+     * @return bool
+     */
+    public function hasUser(User $user): bool
+    {
+        return in_array($user, $this->users->getValues(), true);
+    }
+
     public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {

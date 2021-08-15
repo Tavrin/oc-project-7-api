@@ -21,15 +21,31 @@ class PhoneRepository extends ServiceEntityRepository
         parent::__construct($registry, Phone::class);
     }
 
-    public function findPaginatedPhones(int $first = 0, int $limit = 5): Paginator
+    public function findPaginatedPhones(int $firstPage = 1, int $limit = null, array $sort = null): Paginator
     {
+        if (null === $limit) {
+            $limit = 10;
+        }
+
+        $offset = ($firstPage * $limit) - $limit;
         $query = $this->createQueryBuilder('p')
             ->orderBy('p.createdAt', 'DESC')
-            ->setFirstResult($first)
+            ->setFirstResult($offset)
         ;
 
         if (isset($limit) && 0 !== $limit) {
             $query->setMaxResults($limit);
+        }
+
+        if (isset($sort)) {
+            foreach ($sort as $column) {
+                if ('-' === $column[0]) {
+                    $column = substr($column, 1);
+                    $query->addOrderBy('p.' . $column, 'ASC');
+                } else {
+                    $query->addOrderBy('p.' . $column, 'DESC');
+                }
+            }
         }
 
         return new Paginator($query, true);
