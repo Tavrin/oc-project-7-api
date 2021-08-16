@@ -85,6 +85,11 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $googleId;
 
+    /**
+     * @ORM\Column(type="bigint", nullable=true)
+     */
+    private $facebookId;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -285,6 +290,18 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     public function setGoogleId(?int $googleId): self
     {
         $this->googleId = $googleId;
+
+        return $this;
+    }
+
+    public function getFacebookId(): ?string
+    {
+        return $this->facebookId;
+    }
+
+    public function setFacebookId(?string $facebookId): self
+    {
+        $this->facebookId = $facebookId;
 
         return $this;
     }

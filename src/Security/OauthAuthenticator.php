@@ -25,6 +25,7 @@ class OauthAuthenticator extends SocialAuthenticator
 {
     private const TYPE_GOOGLE = 'google';
     private const TYPE_GITHUB = 'github';
+    private const TYPE_FACEBOOK = 'facebook';
     private ClientRegistry $clientRegistry;
     private EntityManagerInterface $em;
     private RouterInterface $router;
@@ -45,6 +46,9 @@ class OauthAuthenticator extends SocialAuthenticator
         } elseif ($request->attributes->get('_route') === 'connect_github_check') {
             $this->type = self::TYPE_GITHUB;
             return true;
+        } elseif ($request->attributes->get('_route') === 'connect_facebook_check') {
+            $this->type = self::TYPE_FACEBOOK;
+            return true;
         }
 
         return false;
@@ -52,22 +56,17 @@ class OauthAuthenticator extends SocialAuthenticator
 
     public function getCredentials(Request $request)
     {
-        if (self::TYPE_GOOGLE === $this->type) {
-            return $this->fetchAccessToken($this->getGoogleClient());
-        } elseif (self::TYPE_GITHUB === $this->type) {
-            return $this->fetchAccessToken($this->getGithubClient());
-        }
+        return $this->fetchAccessToken($this->getClient($this->type));
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
+        $user = $this->getClient($this->type)
+            ->fetchUserFromToken($credentials);
+        $email = $user->getEmail();
         $existingUser = null;
 
         if (self::TYPE_GITHUB === $this->type) {
-            $user = $this->getGithubClient()
-                ->fetchUserFromToken($credentials);
-            $email = $user->getEmail();
-
             $existingUser = $this->em->getRepository(Client::class)
                 ->findOneBy(['githubId' => $user->getId()]);
             if ($existingUser) {
@@ -82,10 +81,6 @@ class OauthAuthenticator extends SocialAuthenticator
                 $this->em->flush();
             }
         } elseif (self::TYPE_GOOGLE === $this->type) {
-            $user = $this->getGoogleClient()
-                ->fetchUserFromToken($credentials);
-            $email = $user->getEmail();
-
             $existingUser = $this->em->getRepository(Client::class)
                 ->findOneBy(['googleId' => $user->getId()]);
             if ($existingUser) {
@@ -99,22 +94,42 @@ class OauthAuthenticator extends SocialAuthenticator
                 $existingUser->setGoogleId((int) $user->getId());
                 $this->em->flush();
             }
+        } elseif (self::TYPE_FACEBOOK === $this->type) {
+            $existingUser = $this->em->getRepository(Client::class)
+                ->findOneBy(['facebookId' => $user->getId()]);
+            if ($existingUser) {
+                return $existingUser;
+            }
+
+            $existingUser = $this->em->getRepository(Client::class)
+                ->findOneBy(['email' => $email]);
+
+            if ($existingUser) {
+                $existingUser->setFacebookId((int) $user->getId());
+                $this->em->flush();
+            }
         }
 
 
         return $existingUser;
     }
 
-    private function getGoogleClient(): OAuth2ClientInterface
+    private function getClient(string $client): OAuth2ClientInterface
     {
         return $this->clientRegistry
-            ->getClient('google');
+            ->getClient($client);
     }
 
     private function getGithubClient(): OAuth2ClientInterface
     {
         return $this->clientRegistry
             ->getClient('github');
+    }
+
+    private function getFacebookClient(): OAuth2ClientInterface
+    {
+        return $this->clientRegistry
+            ->getClient('facebook');
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): RedirectResponse

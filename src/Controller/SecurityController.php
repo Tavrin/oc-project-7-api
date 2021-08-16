@@ -88,4 +88,36 @@ class SecurityController extends AbstractController
     public function checkGoogleAction(ClientRegistry $clientRegistry)
     {
     }
+
+    /**
+     * @OA\Get(
+     *      path="/api/token/facebook",
+     *     summary="Facebook Oauth route to get a JWT token",
+     *     operationId="getFacebookToken",
+     *     @OA\Response(
+     *          response="200",
+     *          description="A Facefook oauth route to get a JWT token"
+     *          ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="an unexpected error"
+     *   )
+     * )
+     * @Route("/api/token/facebook", name="connect_facebook_start")
+     */
+    public function connectFacebookAction(ClientRegistry $clientRegistry): RedirectResponse
+    {
+        return $clientRegistry
+            ->getClient('facebook')
+            ->redirect([
+                'email'
+            ]);
+    }
+
+    /**
+     * @Route("/oauth/facebook/check", name="connect_facebook_check")
+     */
+    public function checkFacebookAction(ClientRegistry $clientRegistry)
+    {
+    }
 }
