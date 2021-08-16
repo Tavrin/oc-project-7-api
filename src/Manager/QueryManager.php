@@ -2,7 +2,6 @@
 
 namespace App\Manager;
 
-use App\Entity\Client;
 use App\Entity\Phone;
 use App\Entity\User;
 use App\Http\ApiResponse;
@@ -12,13 +11,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class QueryManager
 {
-    private const USER_FIELDS = [
-        'username',
-        'email',
-        'created_at'
-    ]
-    ;
-
     private EntityManagerInterface $em;
     private NormalizerInterface $normalizer;
 
@@ -58,10 +50,5 @@ class QueryManager
     {
         $this->em->remove($user);
         $this->em->flush();
-    }
-
-    private function verifySort(array $query, string $type)
-    {
-
     }
 }

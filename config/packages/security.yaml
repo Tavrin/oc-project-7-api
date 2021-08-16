@@ -32,7 +32,7 @@ security:
             provider: app_user_provider
             guard:
                 authenticators:
-                    - App\Security\GithubAuthenticator
+                    - App\Security\OauthAuthenticator
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

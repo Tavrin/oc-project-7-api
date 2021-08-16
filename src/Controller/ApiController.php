@@ -2,18 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Client;
-use App\Entity\Phone;
-use App\Entity\User;
-use App\Http\ApiResponse;
 use App\Manager\ApiManager;
-use App\Manager\QueryManager;
-use App\Repository\PhoneRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;

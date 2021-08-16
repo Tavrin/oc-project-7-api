@@ -80,6 +80,11 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $githubId;
 
+    /**
+     * @ORM\Column(type="bigint", nullable=true)
+     */
+    private $googleId;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -268,6 +273,18 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     public function setGithubId(?int $githubId): self
     {
         $this->githubId = $githubId;
+
+        return $this;
+    }
+
+    public function getGoogleId(): ?int
+    {
+        return $this->googleId;
+    }
+
+    public function setGoogleId(?int $googleId): self
+    {
+        $this->googleId = $googleId;
 
         return $this;
     }

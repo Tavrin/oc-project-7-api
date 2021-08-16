@@ -2,9 +2,7 @@
 
 namespace App\Manager;
 
-use App\Entity\Client;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class MetadataManager
 {

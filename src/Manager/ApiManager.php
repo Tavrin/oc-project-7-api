@@ -2,7 +2,6 @@
 
 namespace App\Manager;
 
-use App\Entity\Client;
 use App\Entity\User;
 use App\Http\ApiResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,7 +9,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ApiManager
@@ -31,7 +29,8 @@ class ApiManager
             ],
             'phones' => ['href' => '/api/phones'],
             'token_retrieve' => ['href' => '/oauth/token'],
-            'github_authentication' => ['href' => '/api/token/github']
+            'github_authentication' => ['href' => '/api/token/github'],
+            'google_authentication' => ['href' => '/api/token/google']
         ],
     ]
     ;
