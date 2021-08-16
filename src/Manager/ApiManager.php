@@ -16,21 +16,21 @@ class ApiManager
     private const INDEX_DATA = [
         '_links' => [
             'self' => [
-                "href" => '/api/',
-                'description' => 'API root, here'
+                'href' => '/api/',
+                'description' => 'API root, here',
             ],
             'doc' => [
                 'href' => '/api/doc.json',
-                'description' => 'API documentation'
+                'description' => 'API documentation',
             ],
             'users' => [
                 'href' => '/api/me/users',
-                'description' => 'List the users associated with your account or create a new user'
+                'description' => 'List the users associated with your account or create a new user',
             ],
             'phones' => ['href' => '/api/phones'],
             'token_retrieve' => ['href' => '/oauth/token'],
             'github_authentication' => ['href' => '/api/token/github'],
-            'google_authentication' => ['href' => '/api/token/google']
+            'google_authentication' => ['href' => '/api/token/google'],
         ],
     ]
     ;
@@ -38,7 +38,7 @@ class ApiManager
     private const DEFAULT_QUERIES = [
         'page' => 1,
         'limit' => null,
-        'sort' => null
+        'sort' => null,
     ]
     ;
 
@@ -57,6 +57,7 @@ class ApiManager
 
     /**
      * @return array|\ArrayObject|bool|float|int|string|null
+     *
      * @throws ExceptionInterface
      */
     public function getIndex()
@@ -65,8 +66,6 @@ class ApiManager
     }
 
     /**
-     * @param Request $request
-     * @return array
      * @throws ExceptionInterface
      */
     public function getPhonesList(Request $request): array
@@ -75,12 +74,11 @@ class ApiManager
         $phoneEntities = $this->queryManager->setGetPhonesData($queries);
         $phones['items'] = $this->normalizer->normalize($phoneEntities, 'json', ['groups' => 'phone_list']);
         $queries['baseLink'] = '/api/phones';
+
         return $this->metadataManager->setGetPhonesMetadata($phones, $phoneEntities, $queries);
     }
 
     /**
-     * @param UserInterface $client
-     * @return array
      * @throws ExceptionInterface
      */
     public function getUsersList(Request $request, UserInterface $client): array
@@ -89,30 +87,29 @@ class ApiManager
         $userEntities = $this->queryManager->setGetUsersData($client, $queries);
         $users['items'] = $this->normalizer->normalize($userEntities, 'json', ['groups' => 'users_list']);
         $queries['baseLink'] = '/api/me/users';
+
         return $this->metadataManager->setUserListLinks($users, $userEntities, $queries);
     }
 
-    /**
-     * @param array $client
-     * @return array
-     */
     public function setGetClientItemLinks(array $client): array
     {
         $client['_links'] = [
-            "users" => ["href" => '/api/me/users']
+            'users' => ['href' => '/api/me/users'],
             ]
         ;
 
         foreach ($client['users'] as $key => $user) {
             $client['users'][$key] = $this->setSelfLink('/api/clients/', $user);
         }
+
         return $this->setSelfLink('/api/me', $client, false);
     }
 
     protected function setSelfLink(string $path, array $content, $setId = true): array
     {
         $setId ? $id = $content['id'] : $id = '';
-        $content['_links']['self'] = ["href" => $path.$id, "type" => 'GET'];
+        $content['_links']['self'] = ['href' => $path.$id, 'type' => 'GET'];
+
         return $content;
     }
 
@@ -133,6 +130,7 @@ class ApiManager
         }
 
         $this->queryManager->deleteUser($user);
+
         return true;
     }
 
@@ -150,7 +148,7 @@ class ApiManager
             return $validationResult;
         }
 
-        $notBlankConstraint =  new Assert\NotBlank();
+        $notBlankConstraint = new Assert\NotBlank();
         $emailConstraint = new Assert\Email();
         $emailConstraint->message = 'Invalid email address';
         $errors = $this->validator->validate(
@@ -197,7 +195,7 @@ class ApiManager
         }
 
         if ($request->query->has('sort')) {
-            $options['sort'] =  explode(',', $request->query->get('sort'));
+            $options['sort'] = explode(',', $request->query->get('sort'));
         }
 
         return $options;

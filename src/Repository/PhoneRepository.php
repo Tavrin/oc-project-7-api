@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Entity\Phone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -41,9 +40,9 @@ class PhoneRepository extends ServiceEntityRepository
             foreach ($sort as $column) {
                 if ('-' === $column[0]) {
                     $column = substr($column, 1);
-                    $query->addOrderBy('p.' . $column, 'ASC');
+                    $query->addOrderBy('p.'.$column, 'ASC');
                 } else {
-                    $query->addOrderBy('p.' . $column, 'DESC');
+                    $query->addOrderBy('p.'.$column, 'DESC');
                 }
             }
         }

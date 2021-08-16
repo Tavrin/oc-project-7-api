@@ -76,7 +76,7 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="bigint", nullable=true)
      */
     private $githubId;
 
@@ -216,9 +216,6 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->users;
     }
 
-    /**
-     * @return bool
-     */
     public function hasUser(User $user): bool
     {
         return in_array($user, $this->users->getValues(), true);

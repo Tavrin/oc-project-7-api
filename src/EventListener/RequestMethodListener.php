@@ -2,14 +2,13 @@
 
 namespace App\EventListener;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\Routing\RouterInterface;
 
 class RequestMethodListener
 {
     protected RouterInterface $router;
+
     public function __construct(RouterInterface $router)
     {
         $this->router = $router;

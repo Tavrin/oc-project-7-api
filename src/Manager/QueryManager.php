@@ -33,7 +33,7 @@ class QueryManager
     public function addUser(array $data, $client)
     {
         if ($user = $this->em->getRepository(User::class)->findOneBy(['email' => $data['email'], 'client' => $client])) {
-            return new ApiResponse('user already exists for this client', $this->normalizer->normalize($user, 'json', ['groups' =>'user_show']), [], 303);
+            return new ApiResponse('user already exists for this client', $this->normalizer->normalize($user, 'json', ['groups' => 'user_show']), [], 303);
         }
 
         $user = new User();

@@ -4,25 +4,24 @@ namespace App\Factory;
 
 use App\Entity\Client;
 use App\Repository\ClientRepository;
-use DateTimeImmutable;
-use Zenstruck\Foundry\RepositoryProxy;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
+use Zenstruck\Foundry\RepositoryProxy;
 
 /**
- * @method static Client|Proxy createOne(array $attributes = [])
- * @method static Client[]|Proxy[] createMany(int $number, $attributes = [])
- * @method static Client|Proxy find($criteria)
- * @method static Client|Proxy findOrCreate(array $attributes)
- * @method static Client|Proxy first(string $sortedField = 'id')
- * @method static Client|Proxy last(string $sortedField = 'id')
- * @method static Client|Proxy random(array $attributes = [])
- * @method static Client|Proxy randomOrCreate(array $attributes = [])
- * @method static Client[]|Proxy[] all()
- * @method static Client[]|Proxy[] findBy(array $attributes)
- * @method static Client[]|Proxy[] randomSet(int $number, array $attributes = [])
- * @method static Client[]|Proxy[] randomRange(int $min, int $max, array $attributes = [])
- * @method static ClientRepository|RepositoryProxy repository()
+ * @method static       Client|Proxy createOne(array $attributes = [])
+ * @method static       Client[]|Proxy[] createMany(int $number, $attributes = [])
+ * @method static       Client|Proxy find($criteria)
+ * @method static       Client|Proxy findOrCreate(array $attributes)
+ * @method static       Client|Proxy first(string $sortedField = 'id')
+ * @method static       Client|Proxy last(string $sortedField = 'id')
+ * @method static       Client|Proxy random(array $attributes = [])
+ * @method static       Client|Proxy randomOrCreate(array $attributes = [])
+ * @method static       Client[]|Proxy[] all()
+ * @method static       Client[]|Proxy[] findBy(array $attributes)
+ * @method static       Client[]|Proxy[] randomSet(int $number, array $attributes = [])
+ * @method static       Client[]|Proxy[] randomRange(int $min, int $max, array $attributes = [])
+ * @method static       ClientRepository|RepositoryProxy repository()
  * @method Client|Proxy create($attributes = [])
  */
 final class ClientFactory extends ModelFactory
@@ -42,7 +41,7 @@ final class ClientFactory extends ModelFactory
             'roles' => ['ROLE_USER'],
             'description' => self::faker()->paragraphs(
                 self::faker()->numberBetween(1, 5),
-         true
+                true
             ),
             'password' => self::faker()->password(),
             'name' => self::faker()->company(),

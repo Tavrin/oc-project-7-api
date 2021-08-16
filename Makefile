@@ -8,6 +8,7 @@ install:
 	symfony console doctrine:database:create
 	symfony console doctrine:schema:update --force
 	symfony console doctrine:fixtures:load
+	php bin/console lexik:jwt:generate-keypair
 	symfony console c:c
 
 composer-install:

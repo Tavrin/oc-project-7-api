@@ -6,7 +6,6 @@ use App\Entity\Client;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface;
-use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -15,11 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
-use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
-use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 
 class OauthAuthenticator extends SocialAuthenticator
 {
@@ -40,14 +35,17 @@ class OauthAuthenticator extends SocialAuthenticator
 
     public function supports(Request $request): bool
     {
-        if ($request->attributes->get('_route') === 'connect_google_check') {
+        if ('connect_google_check' === $request->attributes->get('_route')) {
             $this->type = self::TYPE_GOOGLE;
+
             return true;
-        } elseif ($request->attributes->get('_route') === 'connect_github_check') {
+        } elseif ('connect_github_check' === $request->attributes->get('_route')) {
             $this->type = self::TYPE_GITHUB;
+
             return true;
-        } elseif ($request->attributes->get('_route') === 'connect_facebook_check') {
+        } elseif ('connect_facebook_check' === $request->attributes->get('_route')) {
             $this->type = self::TYPE_FACEBOOK;
+
             return true;
         }
 
@@ -110,7 +108,6 @@ class OauthAuthenticator extends SocialAuthenticator
             }
         }
 
-
         return $existingUser;
     }
 
@@ -118,18 +115,6 @@ class OauthAuthenticator extends SocialAuthenticator
     {
         return $this->clientRegistry
             ->getClient($client);
-    }
-
-    private function getGithubClient(): OAuth2ClientInterface
-    {
-        return $this->clientRegistry
-            ->getClient('github');
-    }
-
-    private function getFacebookClient(): OAuth2ClientInterface
-    {
-        return $this->clientRegistry
-            ->getClient('facebook');
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): RedirectResponse
@@ -147,7 +132,7 @@ class OauthAuthenticator extends SocialAuthenticator
     {
         $message = strtr($exception->getMessageKey(), $exception->getMessageData());
 
-        return new JsonResponse(['status'=> 403, 'error' => $message], Response::HTTP_FORBIDDEN);
+        return new JsonResponse(['status' => 403, 'error' => $message], Response::HTTP_FORBIDDEN);
     }
 
     /**

@@ -3,11 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Phone;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
-use OpenApi\Annotations as OA;
 
 class PhoneController extends ApiController
 {
@@ -26,11 +26,13 @@ class PhoneController extends ApiController
      *   )
      * )
      * @Route("/api/phones", name="get_phones", methods={"GET", "OPTIONS"})
+     *
      * @throws ExceptionInterface
      */
     public function getPhonesAction(Request $request): JsonResponse
     {
         $phones = $this->apiManager->getPhonesList($request);
+
         return new JsonResponse(['status' => 'success', 'code' => 200, 'data' => $phones]);
     }
 
@@ -49,6 +51,7 @@ class PhoneController extends ApiController
      *   )
      * )
      * @Route("/api/phones/{id}", name="get_phone_item", methods={"GET", "OPTIONS"})
+     *
      * @throws ExceptionInterface
      */
     public function getPhoneItemAction(Phone $phone): JsonResponse

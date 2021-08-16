@@ -41,9 +41,13 @@ Use the Makefile to automate the project installation
 make install
 ```
 
-In the .env.local file, configure the Oauth clients ID and secrets like so:
+In the .env.local file, configure the Oauth clients ID and secrets like so (replace the client IDs, secrets and the JWT passphrase by the actual values):
 ```
 OAUTH_GITHUB_CLIENT_ID=CLIENT_ID
 OAUTH_GITHUB_CLIENT_SECRET=CLIENT_SECRET
+OAUTH_GOOGLE_CLIENT_ID=CLIENT_ID
+OAUTH_GOOGLE_CLIENT_SECRET=CLIENT_SECRET
+OAUTH_FACEBOOK_CLIENT_ID=CLIENT_ID
+OAUTH_FACEBOOK_CLIENT_SECRET=CLIENT_SECRET
 JWT_PASSPHRASE=PASSPRASE
 ```

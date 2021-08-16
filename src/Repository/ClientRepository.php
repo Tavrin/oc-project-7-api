@@ -51,7 +51,6 @@ class ClientRepository extends ServiceEntityRepository implements PasswordUpgrad
         return new Paginator($query, true);
     }
 
-
     // /**
     //  * @return Client[] Returns an array of Client objects
     //  */

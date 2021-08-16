@@ -8,7 +8,8 @@ class MetadataManager
 {
     protected function setSelfLink(string $path, array $content): array
     {
-        $content['_links']['self'] = ["href" => $path.$content['id'], "type" => 'GET'];
+        $content['_links']['self'] = ['href' => $path.$content['id'], 'type' => 'GET'];
+
         return $content;
     }
 
@@ -38,17 +39,16 @@ class MetadataManager
         $items['_links']['first']['href'] = $options['baseLink'].'?page=1';
 
         if (1 < $options['page']) {
-            $items['_links']['previous']['href']  = $options['baseLink'] . ('?page=' . ($options['page'] - 1));
+            $items['_links']['previous']['href'] = $options['baseLink'].('?page='.($options['page'] - 1));
         }
 
-        $items['_links']['self']['href']  = $options['baseLink'].'?page='.$items['page']['number'];
+        $items['_links']['self']['href'] = $options['baseLink'].'?page='.$items['page']['number'];
 
         if ($items['page']['totalPages'] > $options['page']) {
-            $items['_links']['next']['href']  = $options['baseLink'] . ('?page=' . ($options['page'] + 1));
+            $items['_links']['next']['href'] = $options['baseLink'].('?page='.($options['page'] + 1));
         }
 
-        $items['_links']['last']['href']  = $options['baseLink'].'?page='.$items['page']['totalPages'];
-
+        $items['_links']['last']['href'] = $options['baseLink'].'?page='.$items['page']['totalPages'];
 
         return $items;
     }

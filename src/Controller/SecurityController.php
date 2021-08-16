@@ -4,12 +4,12 @@ namespace App\Controller;
 
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
+use OpenApi\Annotations as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
-use OpenApi\Annotations as OA;
 
 class SecurityController extends AbstractController
 {
@@ -34,7 +34,7 @@ class SecurityController extends AbstractController
         return $clientRegistry
             ->getClient('github')
             ->redirect([
-                'read:user', 'user:email'
+                'read:user', 'user:email',
             ]);
     }
 
@@ -78,7 +78,7 @@ class SecurityController extends AbstractController
         return $clientRegistry
             ->getClient('google')
             ->redirect([
-                'openid', 'https://www.googleapis.com/auth/userinfo.email'
+                'openid', 'https://www.googleapis.com/auth/userinfo.email',
             ]);
     }
 
@@ -110,7 +110,7 @@ class SecurityController extends AbstractController
         return $clientRegistry
             ->getClient('facebook')
             ->redirect([
-                'email'
+                'email',
             ]);
     }
 

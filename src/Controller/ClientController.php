@@ -4,12 +4,12 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Http\ApiResponse;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
-use OpenApi\Annotations as OA;
 
 class ClientController extends ApiController
 {
@@ -25,6 +25,7 @@ class ClientController extends ApiController
      *      )
      * )
      * @Route("/api/me", name="get_client_item", methods={"GET", "OPTIONS"})
+     *
      * @throws ExceptionInterface
      */
     public function getClientItemAction(Request $request): JsonResponse
@@ -32,6 +33,7 @@ class ClientController extends ApiController
         $client = $this->getUser();
         $client = $this->normalizer->normalize($client, 'json', ['groups' => 'client_show']);
         $client = $this->apiManager->setGetClientItemLinks($client);
+
         return new JsonResponse(['status' => 200, 'message' => $client]);
     }
 
@@ -64,6 +66,7 @@ class ClientController extends ApiController
      * )
      * @Route("/api/me/users", name="get_client_users", methods={"GET", "POST", "OPTIONS"})
      * @IsGranted("ROLE_USER", statusCode=401, message="Unauthorized")
+     *
      * @throws ExceptionInterface
      */
     public function getClientUsersAction(Request $request): JsonResponse
@@ -121,6 +124,7 @@ class ClientController extends ApiController
      * )
      * @Route("/api/me/users/{id}", name="get_client_user_item", methods={"GET", "DELETE", "OPTIONS"})
      * @IsGranted("ROLE_USER", statusCode=401, message="Unauthorized")
+     *
      * @throws ExceptionInterface
      */
     public function getClientUserDetailsAction(Request $request, User $user): JsonResponse

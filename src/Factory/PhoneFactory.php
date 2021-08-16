@@ -4,25 +4,24 @@ namespace App\Factory;
 
 use App\Entity\Phone;
 use App\Repository\PhoneRepository;
-use DateTimeImmutable;
-use Zenstruck\Foundry\RepositoryProxy;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
+use Zenstruck\Foundry\RepositoryProxy;
 
 /**
- * @method static Phone|Proxy createOne(array $attributes = [])
- * @method static Phone[]|Proxy[] createMany(int $number, $attributes = [])
- * @method static Phone|Proxy find($criteria)
- * @method static Phone|Proxy findOrCreate(array $attributes)
- * @method static Phone|Proxy first(string $sortedField = 'id')
- * @method static Phone|Proxy last(string $sortedField = 'id')
- * @method static Phone|Proxy random(array $attributes = [])
- * @method static Phone|Proxy randomOrCreate(array $attributes = [])
- * @method static Phone[]|Proxy[] all()
- * @method static Phone[]|Proxy[] findBy(array $attributes)
- * @method static Phone[]|Proxy[] randomSet(int $number, array $attributes = [])
- * @method static Phone[]|Proxy[] randomRange(int $min, int $max, array $attributes = [])
- * @method static PhoneRepository|RepositoryProxy repository()
+ * @method static      Phone|Proxy createOne(array $attributes = [])
+ * @method static      Phone[]|Proxy[] createMany(int $number, $attributes = [])
+ * @method static      Phone|Proxy find($criteria)
+ * @method static      Phone|Proxy findOrCreate(array $attributes)
+ * @method static      Phone|Proxy first(string $sortedField = 'id')
+ * @method static      Phone|Proxy last(string $sortedField = 'id')
+ * @method static      Phone|Proxy random(array $attributes = [])
+ * @method static      Phone|Proxy randomOrCreate(array $attributes = [])
+ * @method static      Phone[]|Proxy[] all()
+ * @method static      Phone[]|Proxy[] findBy(array $attributes)
+ * @method static      Phone[]|Proxy[] randomSet(int $number, array $attributes = [])
+ * @method static      Phone[]|Proxy[] randomRange(int $min, int $max, array $attributes = [])
+ * @method static      PhoneRepository|RepositoryProxy repository()
  * @method Phone|Proxy create($attributes = [])
  */
 final class PhoneFactory extends ModelFactory

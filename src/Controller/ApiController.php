@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Manager\ApiManager;
+use OpenApi\Annotations as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use OpenApi\Annotations as OA;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -36,11 +36,13 @@ class ApiController extends AbstractController
      *   )
      * )
      * @Route("/api", name="api_index", methods={"GET", "OPTIONS"})
+     *
      * @throws ExceptionInterface
      */
     public function getIndexAction(): JsonResponse
     {
         $index = $this->apiManager->getIndex();
+
         return new JsonResponse(['status' => 'success', 'code' => 200, 'data' => $index]);
     }
 }

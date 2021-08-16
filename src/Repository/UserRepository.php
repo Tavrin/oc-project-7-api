@@ -6,8 +6,6 @@ use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
@@ -44,7 +42,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
 
         if (isset($sort)) {
-            foreach($sort as $column) {
+            foreach ($sort as $column) {
                 if ('-' === $column[0]) {
                     $column = substr($column, 1);
                     $query->addOrderBy('u.'.$column, 'ASC');
