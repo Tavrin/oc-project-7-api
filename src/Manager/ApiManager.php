@@ -31,6 +31,7 @@ class ApiManager
             'token_retrieve' => ['href' => '/oauth/token'],
             'github_authentication' => ['href' => '/api/token/github'],
             'google_authentication' => ['href' => '/api/token/google'],
+            'facebook_authentication' => ['href' => '/api/token/facebook'],
         ],
     ]
     ;
