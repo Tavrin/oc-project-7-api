@@ -51,3 +51,15 @@ OAUTH_FACEBOOK_CLIENT_ID=CLIENT_ID
 OAUTH_FACEBOOK_CLIENT_SECRET=CLIENT_SECRET
 JWT_PASSPHRASE=PASSPRASE
 ```
+
+## Documentation
+
+The documentation is accessible from this link :
+```
+localhost:8000/api/doc
+```
+
+And in JSON format from this link :
+```
+localhost:8000/api/doc.json
+```
